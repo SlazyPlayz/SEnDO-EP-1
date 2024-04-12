@@ -28,6 +28,7 @@ jobs:
     
   run-unit-tests:
 
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -45,6 +46,7 @@ jobs:
       
   run-ui-tests:
 
+    needs: build
     runs-on: ubuntu-latest
 
     steps:
@@ -63,3 +65,16 @@ jobs:
       run: npm start &
     - name: Run unit tests
       run: npm run test:ui
+
+  deploy-production:
+
+    needs: [ run-ui-tests, run-unit-tests ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to production
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          service-id: ${{ secrets.RENDER_SERVICE_ID }}
+          api-key: ${{ secrets.RENDER_API_KEY }}
+          # wait-for-success: true

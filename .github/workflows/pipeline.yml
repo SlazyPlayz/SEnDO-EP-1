@@ -13,16 +13,16 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Use Node.js 20.x
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 20.x
         cache: 'npm'
     - name: Install NPM dependencies
       run: npm install
     - name: Start the app
-      run: npm start
+      run: npm start &
     - name: Display SoftUni username
       run: echo "slazy"
     
@@ -32,9 +32,9 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Use Node.js 20.x
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 20.x
         cache: 'npm'
@@ -49,13 +49,15 @@ jobs:
 
     steps:
     - name: Checkout the repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
     - name: Use Node.js 20.x
-      uses: actions/setup-node@v3
+      uses: actions/setup-node@v4
       with:
         node-version: 20.x
         cache: 'npm'
     - name: Install NPM dependencies
       run: npm install
+    - name: Install playwright
+      run: npx playwright install
     - name: Run unit tests
       run: npm run test:ui
